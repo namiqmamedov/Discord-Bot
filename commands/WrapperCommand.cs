@@ -79,7 +79,7 @@ namespace Discord_Bot.commands
         public async Task HelloCommand(CommandContext ctx)
         {
             var interactivity = Program.Client.GetInteractivity();
-
+                 
             var messageToRetrieve = await interactivity.WaitForMessageAsync(message => message.Content == "Hello");
             
             if(messageToRetrieve.Result.Content == "Hello")
@@ -161,6 +161,13 @@ namespace Discord_Bot.commands
             };
 
             await ctx.Channel.SendMessageAsync(embed: resultsEmbed);
+        }
+
+        [Command("text")]
+        [Cooldown(5, 10, CooldownBucketType.User)]
+        public async Task TextCommand(CommandContext ctx)
+        {
+            await ctx.Channel.SendMessageAsync("Text Message");
         }
     }
 }
