@@ -8,6 +8,7 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
+using DSharpPlus.SlashCommands;
 using System;
 using System.Threading.Tasks;
 
@@ -51,12 +52,15 @@ namespace Discord_Bot
             };
 
             Commands = Client.UseCommandsNext(commandsConfig);
+            var slashCommandsConfig = Client.UseSlashCommands();
 
             Commands.CommandErrored += Commands_CommandErrored;
 
             Commands.RegisterCommands<WrapperCommand>();
 
-            await Client.ConnectAsync();
+            slashCommandsConfig.RegisterCommands<SlashCommand>();
+
+            await Client.ConnectAsync();    
             await Task.Delay(-1); // working infinite 
         }
 
@@ -73,7 +77,7 @@ namespace Discord_Bot
                 }
 
                 var coolDownMessage = new DiscordEmbedBuilder
-                {
+                { 
                      Color = DiscordColor.Red,
                      Title = "Please wait for the cooldown to end",
                      Description = $"Time : {timeLeft}"
