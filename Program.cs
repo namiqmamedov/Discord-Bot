@@ -1,5 +1,6 @@
 ﻿using Discord_Bot.commands;
 using Discord_Bot.config;
+using Discord_Bot.Engine.LevelSystem;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -18,6 +19,8 @@ namespace Discord_Bot
     {
         public static DiscordClient Client { get; set; }
         public static CommandsNextExtension Commands { get; set; }
+
+        private static int ImageIDCounter = 0;
 
         static async Task Main(string[] args)
         {
@@ -40,7 +43,7 @@ namespace Discord_Bot
             });
 
             Client.Ready += Client_Ready;
-            Client.MessageCreated += Client_MessageCreated;
+            Client.MessageCreated += MessageSendHandler;
             Client.VoiceStateUpdated += VoiceChannelHandler;
 
             var commandsConfig = new CommandsNextConfiguration()
@@ -95,9 +98,26 @@ namespace Discord_Bot
             }
         }
 
-        private static Task Client_MessageCreated(DiscordClient sender, MessageCreateEventArgs args)
+        private static  async Task MessageSendHandler(DiscordClient sender, DSharpPlus.EventArgs.MessageCreateEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Message.Content == "!image")
+            {
+                ImageIDCounter = 0;
+            }
+
+            var levelEngine = new LevelEngine();
+            var addedXP = levelEngine.AddXP(e.Author.Username, e.Guild.Id);
+            if (levelEngine.levelledUp == true)
+            {
+                var levelledUpEmbed = new DiscordEmbedBuilder()
+                {
+                    Title = e.Author.Username + " has levelled up!!!!",
+                    Description = "Level: " + levelEngine.GetUser(e.Author.Username, e.Guild.Id).Level.ToString(),
+                    Color = DiscordColor.Chartreuse
+                };
+
+                await e.Channel.SendMessageAsync(e.Author.Mention, embed: levelledUpEmbed);
+            }
         }
 
         private static Task Client_Ready(DiscordClient sender, ReadyEventArgs args)

@@ -145,16 +145,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="commands\SlashCommand.cs" />
-    <Compile Include="commands\WrapperCommand.cs" />
-    <Compile Include="config\JsonReader.cs" />
-    <Compile Include="other\CardSystem.cs" />
+    <Compile Include="Commands\SlashCommand.cs" />
+    <Compile Include="Commands\WrapperCommand.cs" />
+    <Compile Include="Config\JsonReader.cs" />
+    <Compile Include="Engine\LevelSystem\DUser.cs" />
+    <Compile Include="Engine\LevelSystem\LevelEngine.cs" />
+    <Compile Include="Other\CardSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\config.json" />
+    <None Include="Config\config.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

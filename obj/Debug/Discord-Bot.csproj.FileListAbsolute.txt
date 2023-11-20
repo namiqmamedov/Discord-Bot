@@ -39,3 +39,5 @@ D:\repos\C#\Discord-Bot\obj\Debug\Discord-Bot.csproj.CoreCompileInputs.cache
 D:\repos\C#\Discord-Bot\obj\Debug\Discord-Bot.csproj.CopyComplete
 D:\repos\C#\Discord-Bot\obj\Debug\Discord-Bot.exe
 D:\repos\C#\Discord-Bot\obj\Debug\Discord-Bot.pdb
+D:\repos\C#\Discord-Bot\bin\Debug\DSharpPlus.SlashCommands.dll
+D:\repos\C#\Discord-Bot\bin\Debug\DSharpPlus.SlashCommands.xml
